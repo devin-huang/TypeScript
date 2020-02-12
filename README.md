@@ -48,10 +48,10 @@
         work()
       }
     ```
-  - 泛型
-    - 实现同一函数可返回指定类型
-    ```
-    function getDate<T>(value: T): T{
-      return value
-    }
-    ```
+- 泛型
+  - 实现同一函数可返回指定类型
+  ```
+  function getDate<T>(value: T): T{
+    return value
+  }
+  ```
