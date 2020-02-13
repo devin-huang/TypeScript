@@ -71,7 +71,7 @@
 - render
   - Template 或 HTML 转为 render （Vue最终都转为render, 如果直接使用render性能更优）
   - 将 render 生成 VNode
-    - Template / HTML 转换成 VNode
+    - Template / HTML 转换成 render 再使用 createElement 生成 VNode
     - VNode
       - 用原生 JavaScript 对象描述 DOM, virtual DOM 等于 VNode
       - componentOptions 组件 VNode 的配置
@@ -105,5 +105,7 @@
   - 当在重新调用`VNode组件`时会插到`vm.cache`数组最后，当超出数组最大个数会把首个元素删除，有助于合理使用内存
   - 根据vm.cache[key]渲染对应组件，既是使用 render 中的 updateComponent
 - vuex
+  - 多个组件共享数据
+  - 
 - v-model
 
