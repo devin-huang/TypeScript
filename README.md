@@ -55,3 +55,29 @@
     return value
   }
   ```
+
+# Vue 源码
+
+## MVVM
+- M Observe：实例化Vue时使用Object.defineProperty && Object.keys遍历data实现数据响应式
+- V Compiler：解析HTML中的指令，根据每个元素节点的指令替换数据或绑定更新函数
+- VM Watcher / Dep： Observe与Compiler之间桥梁，在Compiler解析指令创建watcher并绑定update方法；Dep用于存储发布订阅的响应依赖，且当所绑定的数据有变更时, 通过dep.notify()通知Watcher
+
+[!](mvvm.png)
+
+## 渲染
+- $mount
+  - DOM真实挂载位置，可用 DOM 或 String 获取
+- render
+  - 将 render 生成 VNode
+  - vm.renderProxy 用于判断渲染的数据是否有定义
+  - Template 或 HTML 转为 render （Vue最终都转为render, 如果直接使用render性能更优）
+  - 在转为 render 后会执行 mountComponent 其实际执行为 updateComponent
+  ```
+  // update 执行patch的createEle函数真实插入DOM
+  updateComponent = () => {
+    vm.update(vm._render(), hydrating)
+  }
+  ```
+- VNode
+  - virtual DOM 等于 VNode
