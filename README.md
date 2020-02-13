@@ -87,9 +87,9 @@
     vm.update(vm._render(), hydrating)
   }
   ```
-  - update 
-  - patch
-  - keepAlive
-  - vuex
-  - v-model
-  - 异步组件
+- update 
+- patch
+- keepAlive
+- vuex
+- v-model
+- 异步组件
