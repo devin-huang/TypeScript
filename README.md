@@ -76,7 +76,7 @@
       - componentOptions 组件 VNode 的配置
       - createElement 把 render 生成 VNode 函数
         - createEmptyVNode 创建注释节点
-        - simpleNormalizeChildren / normalizeArrayChildren 将多维数组转为一维数组
+        - simpleNormalizeChildren / normalizeArrayChildren 将多维数组递归转为一维数组
         - createTextVNode 创建文件节点
         - new VNode() 实例化有元素VNode
       - createComponent 把 render 生成 VNode 组件
