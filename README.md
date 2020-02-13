@@ -69,15 +69,27 @@
 - $mount
   - DOM真实挂载位置，可用 DOM 或 String 获取
 - render
-  - 将 render 生成 VNode
-  - vm.renderProxy 用于判断渲染的数据是否有定义
   - Template 或 HTML 转为 render （Vue最终都转为render, 如果直接使用render性能更优）
-  - 在转为 render 后会执行 mountComponent 其实际执行为 updateComponent
+  - 将 render 生成 VNode
+    - VNode
+      - 用原生 JavaScript 对象描述 DOM, virtual DOM 等于 VNode
+      - componentOptions 组件 VNode 的配置
+      - createElement 把 render 生成 VNode 函数
+        - createEmptyVNode 创建注释节点
+        - simpleNormalizeChildren / normalizeArrayChildren 将多维数组转为一维数组
+        - createTextVNode 创建文件节点
+        - new VNode() 实例化有元素VNode
+      - createComponent 把 render 生成 VNode 组件
+  - 转为 render 后会执行 mountComponent 其实际执行为 updateComponent 初始化、更新组件
   ```
   // update 执行patch的createEle函数真实插入DOM
   updateComponent = () => {
     vm.update(vm._render(), hydrating)
   }
   ```
-- VNode
-  - virtual DOM 等于 VNode
+  - update 
+  - patch
+  - keepAlive
+  - vuex
+  - v-model
+  - 异步组件
