@@ -71,6 +71,7 @@
 - render
   - Template 或 HTML 转为 render （Vue最终都转为render, 如果直接使用render性能更优）
   - 将 render 生成 VNode
+    - Template / HTML 转换成 VNode
     - VNode
       - 用原生 JavaScript 对象描述 DOM, virtual DOM 等于 VNode
       - componentOptions 组件 VNode 的配置
@@ -100,8 +101,9 @@
     - insert 将生成的 DOM 插入到父节点，再生成完整 DOM 后在mount设置的对象中插入，并删除之前旧的 DOM
 
 - keepAlive
-  -
-  -
+  - 定义变量`vm.cache = []`, 用于存放缓存`组件VNode`
+  - 当在重新调用`VNode组件`时会插到`vm.cache`数组最后，当超出数组最大个数会把首个元素删除，有助于合理使用内存
+  - 根据vm.cache[key]渲染对应组件，既是使用 render 中的 updateComponent
 - vuex
 - v-model
 
