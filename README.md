@@ -96,19 +96,18 @@
       }
       ```
       - 用原生 JavaScript 对象描述 DOM, virtual DOM 等于 VNode
-      - componentOptions 组件 VNode 的配置
       - createElement 通过 render 生成 VNode 函数
         - createEmptyVNode 创建注释节点
-        - childrens使用simpleNormalizeChildren / normalizeArrayChildren 多维数组递归转为一维数组
+        - childrens使用simpleNormalizeChildren / normalizeArrayChildren 多维VNode数组递归转为一维数组
         - createTextVNode 创建文件节点
         - new VNode() 根据childrens创建元素节点 VNode
       - createComponent 通过 render 生成 VNode 组件
         - 构造器Ctor是继承Vue构造器
-        - 缓存机制优化： 已经构造生成的 Vnode 组件会被缓存，当下次引用时会直接返回缓存内 VNode ，无需再次实例
+        - 缓存机制优化： 已经构造生成的`Vnode组件`会被缓存，当下次引用时会直接返回缓存内 VNode ，无需再次实例
         - childrens使用simpleNormalizeChildren / normalizeArrayChildren 多维数组递归转为一维数组
         - 组件生命周期： 将组件内置 hook 合并，使每个新生成组件有生命周期
-        - componentOptions 含有 Ctor / children 等重要数据用于生成组件
-        - new VNode() 根据childrens创建元素节点 VNode 组件
+        - componentOptions 含有 Ctor / children 等重要数据用于生成组件，`组件VNode`的配置
+        - new VNode() 根据childrens创建元素节点`VNode组件`
   - 转为 render 后会执行 mountComponent 其实际执行为 updateComponent 初始化、更新组件
   ```
   // update 执行patch的createEle函数真实插入DOM
@@ -120,7 +119,7 @@
   - patch： createPatchFunction 使用柯里化（优点： 预先配置好差异设置，以参数传入从而不累赘函数内部逻辑）
   - createEle 真实创建DOM
     - 初始化时oldVNode参数为 mount 挂载的 DOM，需要使用 emptyNodeAt 转为 VNode, 后续更新时 oldVNode 已经是 VNode
-    - createChildren 在 children 为数组先遍历并递归 createEle，并由 insert 生成真实DOM （所以先渲染子节点再插入到对应的父节点）
+    - createChildren 在 children 为数组先遍历创建空VNode父节点并递归 createEle，并由 insert 生成真实DOM （所以先渲染子节点再插入到对应的父节点）
     - insert 将生成的 DOM 插入到父节点，再生成完整 DOM 后在mount设置的对象中插入，并删除之前旧的 DOM
 
 - keepAlive
