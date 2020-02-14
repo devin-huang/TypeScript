@@ -121,7 +121,10 @@
     - 初始化时oldVNode参数为 mount 挂载的 DOM，需要使用 emptyNodeAt 转为 VNode, 后续更新时 oldVNode 已经是 VNode
     - createChildren 在 children 为数组先遍历创建空VNode父节点并递归 createEle，并由 insert 生成真实DOM （所以先渲染子节点再插入到对应的父节点）
     - insert 将生成的 DOM 插入到父节点，再生成完整 DOM 后在mount设置的对象中插入，并删除之前旧的 DOM
-
+  - component 渲染组件
+    - 根据 createComponent 生成 VNode 导入组件
+      - 创建空节点，并递归插入通过Ctor实例化子组件VNode
+      - 将`组件VNode`转为render生成VNode最终createEle
 - keepAlive
   - 定义变量`vm.cache = []`, 用于存放缓存`组件VNode`
   - 当在重新调用`VNode组件`时会插到`vm.cache`数组最后，当超出数组最大个数会把首个元素删除，有助于合理使用内存
