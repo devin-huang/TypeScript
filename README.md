@@ -59,10 +59,10 @@
 # Vue 源码
 
 ## MVVM
-- M Observe：实例化Vue时使用Object.defineProperty && Object.keys遍历data实现数据响应式，Observer是用来给数据添加Dep依赖
+- M Observe：实例化Vue时使用`Object.defineProperty` && `Object.keys` 遍历data实现数据响应式，Observer是用来给数据添加Dep依赖
 - V Compiler：解析HTML中的指令，根据每个元素节点的指令替换数据或绑定更新函数
-- VM Watcher / Dep： Observe与Compiler之间桥梁，在Compiler解析指令创建watcher并绑定update方法
-- Dep 用于存储发布订阅的响应依赖，且当所绑定的数据有变更时, 通过dep.notify()通知Watcher
+- VM Watcher / Dep： Observe与Compiler之间桥梁，在Compiler解析指令创建watcher并绑定`update`方法
+- Dep 用于存储发布订阅的响应依赖，且当所绑定的数据有变更时, 通过`dep.notify()`通知Watcher
 
 [!](mvvm.png)
 
@@ -98,16 +98,14 @@
       - 用原生 JavaScript 对象描述 DOM, virtual DOM 等于 VNode
       - createElement 通过 render 生成 VNode 函数
         - createEmptyVNode 创建注释节点
-        - childrens使用simpleNormalizeChildren / normalizeArrayChildren 多维VNode数组递归转为一维数组
+        - childrens使用`simpleNormalizeChildren / normalizeArrayChildren`多维VNode数组递归转为一维数组
         - createTextVNode 创建文件节点
         - new VNode() 根据childrens创建元素节点 VNode
-      - createComponent 通过 render 生成 VNode 组件
-        - 构造器Ctor是继承Vue构造器
+      - createComponent Tag标签为组件时通过实例化组件后render生成`VNode`
+        - Ctor为组件构造器并通过extend继承于Vue, 实例化组件
         - 缓存机制优化： 已经构造生成的`Vnode组件`会被缓存，当下次引用时会直接返回缓存内 VNode ，无需再次实例
-        - childrens使用simpleNormalizeChildren / normalizeArrayChildren 多维数组递归转为一维数组
-        - 组件生命周期： 将组件内置 hook 合并，使每个新生成组件有生命周期
-        - componentOptions 含有 Ctor / children 等重要数据用于生成组件，`组件VNode`的配置
-        - new VNode() 根据childrens创建元素节点`VNode组件`
+        - 组件生命周期： `installComponentHooks`为组件添加默认生命周期
+        - new VNode() 创建以'vue-component'开头的vnode，参数`componentOptions`含有 Ctor / children 等数据
   - 转为 render 后会执行 mountComponent 其实际执行为 updateComponent 初始化、更新组件
   ```
   // update 执行patch的createEle函数真实插入DOM
@@ -118,13 +116,9 @@
 - update 
   - patch： createPatchFunction 使用柯里化（优点： 预先配置好差异设置，以参数传入从而不累赘函数内部逻辑）
   - createEle 真实创建DOM
-    - 初始化时oldVNode参数为 mount 挂载的 DOM，需要使用 emptyNodeAt 转为 VNode, 后续更新时 oldVNode 已经是 VNode
-    - createChildren 在 children 为数组先遍历创建空VNode父节点并递归 createEle，并由 insert 生成真实DOM （所以先渲染子节点再插入到对应的父节点）
+    - 初始化时oldVNode参数为 mount 挂载的 DOM，需要使用`emptyNodeAt`转为 VNode, 后续更新时 oldVNode 已经是 VNode
+    - createChildren 在 children 为数组先遍历创建空VNode父节点并递归`createEle`，并由 insert 生成真实DOM （所以先渲染子节点再插入到对应的父节点）
     - insert 将生成的 DOM 插入到父节点，再生成完整 DOM 后在mount设置的对象中插入，并删除之前旧的 DOM
-  - component 渲染组件
-    - 根据 createComponent 生成 VNode 导入组件
-      - 创建空节点，并递归插入通过Ctor实例化子组件VNode
-      - 将`组件VNode`转为render生成VNode最终createEle
 - keepAlive
   - 定义变量`vm.cache = []`, 用于存放缓存`组件VNode`
   - 当在重新调用`VNode组件`时会插到`vm.cache`数组最后，当超出数组最大个数会把首个元素删除，有助于合理使用内存
