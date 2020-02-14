@@ -69,11 +69,32 @@
 ## 渲染
 - $mount
   - DOM真实挂载位置，可用 DOM 或 String 获取
+  - 第一步：如果是有定义render函数直接输出第三步结果，否则Template 或 HTML 转为 AST抽象语法树
+  - 第二步：optimize 标记静态节点用于优化后续diff算法中会被直接忽略
+  - 第三步：generate 将AST 转为 render （Vue最终都转为render, 如果直接使用render性能更优）
+  ```js
+    render (creatElement) {
+      return creatElement('div',
+        attr: {
+          id: 'id'
+        },
+        'message'
+      )
+    }
+  ```
 - render
-  - Template 或 HTML 转为 render （Vue最终都转为render, 如果直接使用render性能更优）
   - 将 render 生成 VNode
     - Template / HTML 转换成 render 再使用 createElement 生成 VNode
     - VNode
+      ```
+      {
+        tag: 'div'
+        children: [{
+            tag: 'span',
+            text: 'hello,VNode'
+        }]
+      }
+      ```
       - 用原生 JavaScript 对象描述 DOM, virtual DOM 等于 VNode
       - componentOptions 组件 VNode 的配置
       - createElement 通过 render 生成 VNode 函数
