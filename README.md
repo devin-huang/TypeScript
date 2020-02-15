@@ -144,6 +144,6 @@
 # Object.defineProperty 处理数组
 - Object.defineProperty 可以对数组进行数据劫持，但只能检测初始化已拥有key的值，所以设置已监听的下标才会触发
 - 数组使用push不会触发`Object.defineProperty`
-- 数组使用unshift可能会触发`Object.defineProperty`（因为无论插入到数据哪个位置，都会从数组最后添加占位再逐一往前移动到指定下标），每次移动都需要重新遍历数组更新下标对应的值
-  - 数组监听性能消耗大于对象，所以改用一个含有数组构造函数的对象 `Object.create(Array.prototype)`
-  - Vue将Array.prototype构造函数原型的push unshift pop shift splice重写
+- 数组使用unshift可能会触发`Object.defineProperty`（因为无论插入到数据哪个位置，都会从数组最后添加占位再逐一往前移动到指定下标），每次移动/更新都需要重新监听遍历数组更新下标对应的值
+  - 数组监听性能消耗大于对象，所以巧妙定义一个含有数组构造函数的对象 `Object.create(Array.prototype)`
+  - 将Array.prototype构造函数原型的push unshift pop shift splice重写扩展（在新增的数组下标添加到observer中并dev.notify）
