@@ -128,3 +128,22 @@
   - 
 - v-model
 
+# Vue 分析
+内存泄漏
+- 外部引用的对象不能直接data中定义（因为最终会通过`Object.defineProperty`绑定全局Vue内，而外部对象嵌套复杂度无法控制）
+```html
+<div v-html="text">
+  <div v-if="false">
+    <span v-on="fn"></span>
+  </div>
+</div>
+```
+- 解析HTML中的指令并用数组保存（如：`['v-html','v-if', 'v-on']`）, 在项目庞大时重新渲染如果`v-if`条件不满足`v-on`也不会执行就会导致`[watcher, undefined, undefined]`处理数组代码没考虑健壮性时容易产生内存泄漏；因为数组中间出现断层，占内存比较大时该数组中不断累加
+- 全局引用（window / document / setTimeout / setInterval / 闭包）
+
+# Object.defineProperty 处理数组
+- Object.defineProperty 可以对数组进行数据劫持，但只能检测初始化已拥有key的值，所以设置已监听的下标才会触发
+- 数组使用push不会触发`Object.defineProperty`
+- 数组使用unshift可能会触发`Object.defineProperty`（因为无论插入到数据哪个位置，都会从数组最后添加占位再逐一往前移动到指定下标），每次移动都需要重新遍历数组更新下标对应的值
+  - 数组监听性能消耗大于对象，所以改用一个含有数组构造函数的对象 `Object.create(Array.prototype)`
+  - Vue将Array.prototype构造函数原型的push unshift pop shift splice重写
