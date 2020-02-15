@@ -59,9 +59,9 @@
 # Vue 源码
 
 ## MVVM
-- M Observe：实例化Vue时使用`Object.defineProperty` && `Object.keys` 遍历data实现数据响应式，Observer是用来给数据添加Dep依赖
-- V Compiler：解析HTML中的指令，根据每个元素节点的指令替换数据或绑定更新函数
-- VM Watcher / Dep： Observe与Compiler之间桥梁，在Compiler解析指令创建watcher并绑定`update`方法
+- M => Observe：实例化Vue时使用`Object.defineProperty` && `Object.keys` 遍历data实现数据响应式，Observer是用来给数据添加Dep依赖
+- V => Compiler：解析HTML中的指令，根据每个元素节点的指令替换数据或绑定更新函数
+- VM => Watcher / Dep： Observe与Compiler之间桥梁，在Compiler解析指令创建watcher并绑定`update`方法
 - Dep 用于存储发布订阅的响应依赖，且当所绑定的数据有变更时, 通过`dep.notify()`通知Watcher
 
 [!](mvvm.png)
