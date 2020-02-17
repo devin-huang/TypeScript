@@ -143,11 +143,14 @@
 - Keep-alive 实际把组件VNode保存在Vue实例cache中，当缓存过多VNode会泄漏，所以设置keep-alive设置max值或者合理销毁cache
 
 # Object.defineProperty 处理数组
-- Object.defineProperty 可以对数组进行数据劫持，但只能检测初始化已拥有key的值，所以设置已监听的下标才会触发
+- `Object.defineProperty`可以对数组进行数据劫持，但只能检测初始化已拥有key的值，所以设置已监听的下标才会触发
 - 数组使用push不会触发`Object.defineProperty`
 - 数组使用unshift可能会触发`Object.defineProperty`（因为无论插入到数据哪个位置，都会从数组最后添加占位再逐一往前移动到指定下标），每次移动/更新都需要重新监听遍历数组更新下标对应的值
   - 数组监听性能消耗大于对象，所以巧妙定义一个含有数组构造函数的对象 `Object.create(Array.prototype)`
   - 将Array.prototype构造函数原型的push unshift pop shift splice重写扩展（在新增的数组下标添加到observer中并dev.notify）
-  - $set
+  - $set 基于`Object.defineProperty` 新增后监听对象更新
 - vue 3
-  - proxy
+  - proxy 优点： 1.无需额外对数据循环（数组）/递归（对象）添加为响应式函数； 2.无需重写数组的方法； 3.除了get/set另增加几种数据响应的方式；
+
+# 优化
+localStorage
