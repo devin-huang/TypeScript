@@ -216,8 +216,8 @@
   - 根据节点在图层上绘制对应的样式
   - 将图层传递给GPU（图像处理器）
   - 将图层合生成图像并处理
-  > GPU处理方式 CSS 3D/ Video / canvas / transform / transition
-  > 注意： width/height / offset /client / scrollTop会立刻触发重排，因为这些需要立即返回准确的数值防止重排后排列位置不对，所以最优处理时采用requireAnimationFrame（执行下一帧时触发）统一写、统一读
+    - GPU处理方式 CSS 3D/ Video / canvas / transform / transition
+    - 注意： width/ height / offset /client / scrollTop会立刻触发重排，因为这些需要立即返回准确的数值防止重排后排列位置不对，所以最优处理时采用requireAnimationFrame（执行下一帧时触发）统一写、统一读
 - css2 双飞翼布局 => CSS3 Flex布局: order， 目的：将最重要的HTML放在最顶部优先渲染
 - css font
 - css 写法规范
