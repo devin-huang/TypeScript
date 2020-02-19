@@ -208,5 +208,22 @@
 ### 渲染机制
 
 ### CSS技巧
+- ftp 1000/60 = 16.67 每16.67毫秒绘制一帧为最优
+- 渲染过程
+  - 根据HTML生成DOM Tree / 根据CSS 生成 CSSOM（样式模型）
+  - 将DOM和CSSOM合并为渲染树
+  - 根据节点在图层上布局元素形状与位置
+  - 根据节点在图层上绘制对应的样式
+  - 将图层传递给GPU（图像处理器）
+  - 将图层合生成图像并处理
+  > GPU处理方式 CSS 3D/ Video / canvas / transform / transition
+  > 注意： width/height / offset /client / scrollTop会立刻触发重排，因为这些需要立即返回准确的数值防止重排后排列位置不对，所以最优处理时采用requireAnimationFrame（执行下一帧时触发）统一写、统一读
+- css2 双飞翼布局 => CSS3 Flex布局: order， 目的：将最重要的HTML放在最顶部优先渲染
+- css font
+- css 写法规范
+  - block / inlink 不需要把默认样式再设置一次（如block  width:100%, inlink  width:50px）
+  - 不能使用ID选择器，低端浏览器单个元素不能使用多个class
+  - 不能过度使用float/ 去掉空样式标签
+ - overflow: hidden => 为什么能填满浮动后父级内容？ 因为：overflow:hidden 会生成BFC（Block Formatting Contect）会让浮动元素重新计算
 
-Nginx
+### Nginx
