@@ -153,4 +153,60 @@
   - proxy 优点： 1.无需额外对数据循环（数组）/递归（对象）添加为响应式函数； 2.无需重写数组的方法； 3.除了get/set另增加几种数据响应的方式；
 
 # 优化
-localStorage
+### localStorage
+
+> indexedDB 非关系型浏览器数据库 webSQL 关系型浏览器数据库；可有50M存储空间，但属于异步请求就有可能读取时间大于网络请求，所以一般用于离线缓存、广告位
+> localstorage 可存储5M，但一般浏览器缓存控制在2.5M中，考虑到低端计算机处理过多会造成页面卡顿加载过慢
+> 插件：`localforage.js` 与 `basket.js`
+> Webpack生成打包后版本文件依赖关系lcoalstorage.js
+> 再根据lcoalstorage.js 版本保存JS代码
+> 使用active.js逐一调用JS文件达到localstorage缓存JS/CSS
+>
+  ```
+  // localstorage.js
+  let betchObj = {
+    runtime: 'runtime.**.js',
+    render: 'render.**.js'
+  }
+  ```
+  ```
+  // 再保存到lcoalstorage
+  localstorage['runtime'] = 'runtime.**.js'
+  localstorage['render'] = 'render.**.js'
+  // 接着根据JS版本保存JS代码
+  let storageObj = {
+    'runtime.**.js': '...',
+    'render.**.js': '...'
+  }
+  ```
+> active.js
+  ```
+  export active = (js) => {
+    Object.Key(betchObj).forEach(key) {
+      if (!js) {
+        const __script = document.createElement("SCRIPT");
+        __script.type = 'text/javascript';
+        __script.src = js;
+        document.body.appendChild(__script);
+        window.localStorage[key] = storageObj[key]
+        window.localStorage[storageObj[key]] = storageObj[storageObj[key]]
+      } else if ( window.localStorage[] == obj[] ) {
+        eval(window.localStorage[])
+      } else {
+        const __script = document.createElement("SCRIPT");
+        __script.type = 'text/javascript';
+        __script.src = js;
+        document.body.appendChild(__script);
+        window.localStorage[key] = storageObj[key]
+        window.localStorage[storageObj[key]] = storageObj[storageObj[key]]
+      }
+    }
+  }
+  ```
+### HTTP2
+  
+### 渲染机制
+
+### CSS技巧
+
+Nginx
