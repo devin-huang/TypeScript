@@ -227,3 +227,19 @@
  - overflow: hidden => 为什么能填满浮动后父级内容？ 因为：overflow:hidden 会生成BFC（Block Formatting Contect）会让浮动元素重新计算
 
 ### Nginx
+- 虚拟主机：将一个服务器主机划分为多个主机称为虚拟主机
+- 访问权限
+- 缓存策略
+### Liunx
+ - vware
+ - 安装liunx
+ - 配置安装选项（网络、可视化窗口、硬盘、内存）
+ - liunx 常用指令
+ - liunx 安装插件
+### 服务器
+> 前端 -> nginx负载均衡 -> Node服务器（过滤后端返回没用的数据）-> redis缓存 -> java服务器 -> 数据库
+
+### Node
+  - 以二进制格式传输流 加快请求速度
+  - 心跳诊断
+  - Node内存泄漏巨影响性能
