@@ -239,6 +239,11 @@
     - CPU核数根据实际CPU核数、内存最小设置为2G、网络设为桥接
     - 将虚拟磁盘存储为单个文件
     - 完成配置后启动VMware进行安装Liunx
+    - intel-v 没启动：进入BOIS 启动virtual internel technology
+    - pane is dead：CD/DVD 均路径指向Liunx镜像文件
+    - 指定硬件位置（必须点击，否则无法下一步）
+    - 网络配置：IPV4设为自动（DHCP）保存即显示连接状态
+    - root 密码设置为123456等弱密码时点击两次确定即可
  - 安装liunx
  - 配置安装选项（网络、可视化窗口、硬盘、内存）
  - liunx 常用指令
