@@ -247,6 +247,10 @@
  - 安装liunx
  - 配置安装选项（网络、可视化窗口、硬盘、内存）
  - liunx 常用指令
+    - ls 列出文件
+    - ll 列出文件与权限
+    - wq 保存并关闭
+    - q 直接关闭
  - liunx 安装插件
    - 切换为root用户
     - yum：CentOS中的Shell前端软件包管理器，安装方法：https://rpm.nodesource.com/
@@ -256,7 +260,11 @@
       - 查看 node -v / npm -v
     - sublime：
       - liunx 内官网下载liunx版本
-      - 
+      - 解压缩 tar -xvvf sublime_text_3_build_**_tar.ba
+      - 移动到opt mv sublime_text_3 /opt/
+      - 复制快速启动文件到系统菜单目录 cp /opt/sublime_text_3/sublime_text.desktop /usr/share/applications
+      - 开打文件 vim /usr/share/applications/sublime_text.desktop
+      - 配置快速启动 Exec /Icon 均改为sublime安装目录 => '/opt/sublime_text_3/sublime_text'
 ### 服务器
 > 前端 -> nginx负载均衡 -> Node服务器（过滤后端返回没用的数据）-> redis缓存 -> java服务器 -> 数据库
 
