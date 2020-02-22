@@ -248,6 +248,15 @@
  - 配置安装选项（网络、可视化窗口、硬盘、内存）
  - liunx 常用指令
  - liunx 安装插件
+   - 切换为root用户
+    - yum：CentOS中的Shell前端软件包管理器，安装方法：https://rpm.nodesource.com/
+    - nodejs：
+      - 添加源：curl -sl https://rpm.nodesource.com/setup_11.x | bash -
+      - 全局安装：yum install -y nodejs
+      - 查看 node -v / npm -v
+    - sublime：
+      - liunx 内官网下载liunx版本
+      - 
 ### 服务器
 > 前端 -> nginx负载均衡 -> Node服务器（过滤后端返回没用的数据）-> redis缓存 -> java服务器 -> 数据库
 
