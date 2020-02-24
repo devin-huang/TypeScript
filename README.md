@@ -231,7 +231,7 @@
 - 访问权限
 - 缓存策略
 ### Liunx
- - VMware
+ - VMware (Workstation Pro)
   - CentOS 8 liunx版本
     - 安装向导
       - 自定义
@@ -247,8 +247,8 @@
  - liunx 常用指令
     - ls 列出文件
     - ll 列出文件与权限
-    - wq 保存并关闭
-    - q  直接关闭
+    - :wq 保存并关闭
+    - :q  直接关闭
     - mv 移动文件
     - tar -xvf 解压
  - liunx 安装插件
@@ -267,7 +267,7 @@
       - 配置快速启动 Exec /Icon 均改为sublime安装目录 => '/opt/sublime_text_3/sublime_text'
     - Nginx
       - 安装Nginx依赖包：`yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel`
-      - liunx中下载Nginx(稳定版)： http://nginx.org/
+      - liunx 内官网下载Nginx(稳定版)： http://nginx.org/
       - 解压Nginx.**.tar.gz，解压后文件夹内执行`./configure`检查
       - 执行（当make没定义需安装）：`make && make  install`
       - 查看是否安装成功并启动：`/usr/local/nginx/sbin/` => `./nginx`
@@ -281,7 +281,7 @@
 
 ### Node
   - 以二进制格式传输流 加快请求速度
-  - 心跳诊断是否连接中
+  - 心跳诊断是否连接中 => setTimeout去Ping
   - Node内存泄漏巨影响性能
   - 高并发处理
     - 每个Node.js进程只有一个主线程在执行程序代码，形成一个执行栈（execution context stack)。
