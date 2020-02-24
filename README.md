@@ -232,39 +232,50 @@
 - 缓存策略
 ### Liunx
  - VMware
-  - CentOS liunx版本
-  - 安装向导
-    - 自定义
-    - 安装映像文件
-    - CPU核数根据实际CPU核数、内存最小设置为2G、网络设为桥接
-    - 将虚拟磁盘存储为单个文件
-    - 完成配置后启动VMware进行安装Liunx
-    - intel-v 没启动：进入BOIS 启动virtual internel technology
-    - pane is dead：CD/DVD 均路径指向Liunx镜像文件
-    - 指定硬件位置（必须点击，否则无法下一步）
-    - 网络配置：IPV4设为自动（DHCP）保存即显示连接状态
-    - root 密码设置为123456等弱密码时点击两次确定即可
- - 安装liunx
- - 配置安装选项（网络、可视化窗口、硬盘、内存）
+  - CentOS 8 liunx版本
+    - 安装向导
+      - 自定义
+      - 安装映像文件
+      - CPU核数根据实际CPU核数、内存最小设置为2G、网络设为桥接
+      - 将虚拟磁盘存储为单个文件
+      - 完成配置后启动VMware进行安装Liunx
+      - intel-v 没启动：进入BOIS 启动virtual internel technology
+      - pane is dead：CD/DVD 均路径指向Liunx镜像文件
+      - 指定硬件位置（必须点击，否则无法下一步）
+      - 网络配置：IPV4设为自动（DHCP）保存即显示连接状态
+      - root 密码设置为123456等弱密码时点击两次确定即可
  - liunx 常用指令
     - ls 列出文件
     - ll 列出文件与权限
     - wq 保存并关闭
-    - q 直接关闭
+    - q  直接关闭
+    - mv 移动文件
+    - tar -xvf 解压
  - liunx 安装插件
    - 切换为root用户
-    - yum：CentOS中的Shell前端软件包管理器，安装方法：https://rpm.nodesource.com/
-    - nodejs：
+    - yum：CentOS中的Shell前端软件包管理器，默认系统已安装。安装方法：https://rpm.nodesource.com/
+    - nodejs 安装步骤：
       - 添加源：curl -sl https://rpm.nodesource.com/setup_11.x | bash -
       - 全局安装：yum install -y nodejs
       - 查看 node -v / npm -v
-    - sublime：
+    - sublime 安装步骤：
       - liunx 内官网下载liunx版本
       - 解压缩 tar -xvvf sublime_text_3_build_**_tar.ba
       - 移动到opt mv sublime_text_3 /opt/
       - 复制快速启动文件到系统菜单目录 cp /opt/sublime_text_3/sublime_text.desktop /usr/share/applications
       - 开打文件 vim /usr/share/applications/sublime_text.desktop
       - 配置快速启动 Exec /Icon 均改为sublime安装目录 => '/opt/sublime_text_3/sublime_text'
+    - Nginx
+      - 安装Nginx依赖包：`yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel`
+      - liunx中下载Nginx(稳定版)： http://nginx.org/
+      - 解压Nginx.**.tar.gz，解压后文件夹内执行`./configure`检查
+      - 执行（当make没定义需安装）：`make && make  install`
+      - 查看是否安装成功并启动：`/usr/local/nginx/sbin/` => `./nginx`
+      - 查看是否启动成功：`ps -ef | grep nginx`
+      - 防火墙设置（不设置防火墙的port, 外部无法访问）
+        - 查看防火墙：firewall-cmd --list-all
+        - 设置外部可访问端口：fire-wall --add-port=80/tcp --permanent
+        - 重启防火墙：firewall-cmd --reload
 ### 服务器
 > 前端 -> nginx负载均衡 -> Node服务器（过滤后端返回没用的数据）-> redis缓存 -> java服务器 -> 数据库
 
