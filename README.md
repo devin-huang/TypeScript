@@ -227,8 +227,7 @@
  - overflow: hidden => 为什么能填满浮动后父级内容？ 因为：overflow:hidden 会生成BFC（Block Formatting Contect）会让浮动元素重新计算
 
 ### Nginx
-- 虚拟主机：将一个服务器主机划分为多个主机称为虚拟主机
-- 访问权限
+- 优点：（负载均衡，反向代理，并发处理，低消耗内存资源）
 - 缓存策略
 ### Liunx
  - VMware (Workstation Pro)
@@ -248,6 +247,7 @@
     - ls 列出文件
     - ll 列出文件与权限
     - :wq 保存并关闭
+    - :q! 不保存并关闭
     - :q  直接关闭
     - mv 移动文件
     - tar -xvf 解压
@@ -265,8 +265,8 @@
       - 复制快速启动文件到系统菜单目录 cp /opt/sublime_text_3/sublime_text.desktop /usr/share/applications
       - 开打文件 vim /usr/share/applications/sublime_text.desktop
       - 配置快速启动 Exec /Icon 均改为sublime安装目录 => '/opt/sublime_text_3/sublime_text'
-    - Nginx
-      - 安装Nginx依赖包：`yum -y install gcc zlib zlib-devel pcre-devel openssl openssl-devel`
+    - Nginx（1.16版本）
+      - 安装Nginx依赖包：`yum -y install gcc zlib zlib-devel pcre-devel make cmake openssl openssl-devel`
       - liunx 内官网下载Nginx(稳定版)： http://nginx.org/
       - 解压Nginx.**.tar.gz，解压后文件夹内执行`./configure`检查
       - 执行（当make没定义需安装）：`make && make  install`
@@ -276,6 +276,26 @@
         - 查看防火墙：firewall-cmd --list-all
         - 设置外部可访问端口：fire-wall --add-port=80/tcp --permanent
         - 重启防火墙：firewall-cmd --reload
+       - `/usr/local/nginx/sbin/nginx` 启动Nginx
+       - `/usr/local/nginx/sbin/nginx -s quit` 待Nginx进程处理完毕任务后停止
+       - `/usr/local/nginx/sbin/nginx -s stop` 查出Nginx进程再使用kill命令强制杀掉进程
+      - 文件目录 `/usr/local/nginx/html`
+      - 配置服务器：`/usr/local/nginx/conf/nginx.conf`
+        - `worker_processes` 设置CPU核数处理高并发
+        - `worker_connections` 最大并发数量
+        - http
+          - `local_format` 设置日志格式
+          - `access_log` 访问日志
+          - `keepalive_timeout` 超时时间
+          - `gzip` 压缩
+          - server
+            - 404 页面配置
+            - location / （可以另添加其他路由设置：location /img 等）
+              - deny 访问权限：禁止指定IP访问或者全部（all）
+              - allow 访问权限：允许指定IP访问或者全部（all）
+              - proxy_pass 反向代理的到指定的服务器
+          - 虚拟主机：将一个服务器主机划分为多个主机称为虚拟主机（`/usr/local/nginx/conf/nginx.conf`中server），以端口区分
+      - 根据终端显示对应的页面（PC or Moblie）
 ### 服务器
 > 前端 -> nginx负载均衡 -> Node服务器（过滤后端返回没用的数据）-> redis缓存 -> java服务器 -> 数据库
 
