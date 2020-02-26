@@ -288,6 +288,7 @@
           - `access_log` 访问日志
           - `keepalive_timeout` 超时时间
           - `gzip` 压缩
+          - upstream 负载均衡
           - server
             - 404 页面配置
             - location / （可以另添加其他路由设置：location /img 等）
