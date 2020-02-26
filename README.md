@@ -288,6 +288,7 @@
           - `access_log` 访问日志
           - `keepalive_timeout` 超时时间
           - `gzip` 压缩
+          - `proxy_cache_path` 启动缓存设置
           - upstream 负载均衡
           - server
             - 404 页面配置
@@ -295,6 +296,7 @@
               - deny 访问权限：禁止指定IP访问或者全部（all）
               - allow 访问权限：允许指定IP访问或者全部（all）
               - proxy_pass 反向代理的到指定的服务器
+              - `proxy_cache_purge` 访问指定路由手动删除缓存
           - 虚拟主机：将一个服务器主机划分为多个主机称为虚拟主机（`/usr/local/nginx/conf/nginx.conf`中server），以端口区分
       - 根据终端显示对应的页面（PC or Moblie）
 ### 服务器
