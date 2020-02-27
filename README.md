@@ -64,6 +64,12 @@
 - VM => Watcher / Dep： Observe与Compiler之间桥梁，在Compiler解析指令创建watcher并绑定`update`方法
 - Dep 用于存储发布订阅的响应依赖，且当所绑定的数据有变更时, 通过`dep.notify()`通知Watcher
 
+> 1.通过Object.defineProperty对Vue实例化后的Data对象遍历绑定为相应数据，get负责添加到Dep对象的订阅者中，set负责触发watcher更新视图
+
+> 2.编译HTML中的指令（v-text/v-html/{{}}等），对每个节点（元素节点/属性节点/文本节点）绑定的变量、函数通过watcher更新（或初始化）更新视图
+
+> 3. MVVM模式中都会传入Vue对象（vm）贯穿整个流程，通过watcher操作vm使第一步与第二步连接起来
+
 [!](mvvm.png)
 
 ## 渲染
@@ -238,7 +244,7 @@
       - CPU核数根据实际CPU核数、内存最小设置为2G、网络设为桥接
       - 将虚拟磁盘存储为单个文件
       - 完成配置后启动VMware进行安装Liunx
-      - intel-v 没启动：进入BOIS 启动virtual internel technology
+      - intel-v 没启动：进入BOIS 启动`virtual internel technology`
       - pane is dead：CD/DVD 均路径指向Liunx镜像文件
       - 指定硬件位置（必须点击，否则无法下一步）
       - 网络配置：IPV4设为自动（DHCP）保存即显示连接状态
