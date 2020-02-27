@@ -310,6 +310,7 @@
      - 启动mongodb： 1.进入指定目录 `/usr/local/mongodb/bin`, 2.启动并指定端口、存放数据路径 `./mongod --port 27017 --dbpath=/data/mongodb`
      - 查看MongoDB是否启动 `netstat -lanp | grep "27017"`
      - 进入操作数据库命令环境：1.进入指定目录 `/usr/local/mongodb/bin` , 2.启动 `./mongo`
+   - ab并发压力测试
 ### 服务器
 > 前端 -> nginx负载均衡 -> Node服务器（过滤后端返回没用的数据）-> redis缓存 -> java服务器 -> 数据库
 
