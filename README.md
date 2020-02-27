@@ -228,7 +228,7 @@
 
 ### Nginx
 - 优点：（负载均衡，反向代理，并发处理，低消耗内存资源）
-- 缓存策略
+- 下载资源： `curl -O https://***`
 ### Liunx
  - VMware (Workstation Pro)
   - CentOS 8 liunx版本
@@ -257,27 +257,27 @@
    - 切换为root用户
     - yum：CentOS中的Shell前端软件包管理器，默认系统已安装。安装方法：https://rpm.nodesource.com/
     - nodejs 安装步骤：
-      - 添加源：curl -sl https://rpm.nodesource.com/setup_11.x | bash -
-      - 全局安装：yum install -y nodejs
-      - 查看 node -v / npm -v
+      - 添加源：`curl -sl https://rpm.nodesource.com/setup_11.x | bash -`
+      - 全局安装：`yum install -y nodejs`
+      - 查看 `node -v / npm -v`
     - sublime 安装步骤：
       - liunx 内官网下载liunx版本
-      - 解压缩 tar -xvvf sublime_text_3_build_**_tar.ba
-      - 移动到opt mv sublime_text_3 /opt/
-      - 复制快速启动文件到系统菜单目录 cp /opt/sublime_text_3/sublime_text.desktop /usr/share/applications
-      - 开打文件 vim /usr/share/applications/sublime_text.desktop
-      - 配置快速启动 Exec /Icon 均改为sublime安装目录 => '/opt/sublime_text_3/sublime_text'
+      - 解压缩 `tar -xvvf sublime_text_3_build_**_tar.ba`
+      - 移动到 opt `mv sublime_text_3 /opt/`
+      - 复制快速启动文件到系统菜单目录 `cp /opt/sublime_text_3/sublime_text.desktop /usr/share/applications`
+      - 开打文件 `vim /usr/share/applications/sublime_text.desktop`
+      - 配置快速启动 `Exec /Icon` 均改为sublime安装目录 => `/opt/sublime_text_3/sublime_text`
     - Nginx（1.16版本）
       - 安装Nginx依赖包：`yum -y install gcc zlib zlib-devel pcre-devel make cmake openssl openssl-devel`
-      - liunx 内官网下载Nginx(稳定版)： http://nginx.org/
+      - liunx 内官网下载Nginx(稳定版)： `http://nginx.org/`
       - 解压Nginx.**.tar.gz，解压后文件夹内执行`./configure`检查
       - 执行（当make没定义需安装）：`make && make  install`
       - 查看是否安装成功并启动：`/usr/local/nginx/sbin/` => `./nginx`
       - 查看是否启动成功：`ps -ef | grep nginx`
       - 防火墙设置（不设置防火墙的port, 外部无法访问）
-        - 查看防火墙：firewall-cmd --list-all
-        - 设置外部可访问端口：fire-wall --add-port=80/tcp --permanent
-        - 重启防火墙：firewall-cmd --reload
+        - 查看防火墙：`firewall-cmd --list-all`
+        - 设置外部可访问端口：`fire-wall --add-port=80/tcp --permanent`
+        - 重启防火墙：`firewall-cmd --reload`
        - `/usr/local/nginx/sbin/nginx` 启动Nginx
        - `/usr/local/nginx/sbin/nginx -s quit` 待Nginx进程处理完毕任务后停止
        - `/usr/local/nginx/sbin/nginx -s stop` 查出Nginx进程再使用kill命令强制杀掉进程
@@ -295,12 +295,21 @@
           - server
             - 404 页面配置
             - location / （可以另添加其他路由设置：location /img 等）
-              - deny 访问权限：禁止指定IP访问或者全部（all）
-              - allow 访问权限：允许指定IP访问或者全部（all）
-              - proxy_pass 反向代理的到指定的服务器
+              - `add_header Cache-Control max-age=3600` 缓存浏览器而请求服务端返回304
+              - `expires` 缓存浏览器而不请求服务端（s/秒, m/分， h/时, d/天, y/年）
+              - `etag` on/off
+              - `deny` 访问权限：禁止指定IP访问或者全部（all）
+              - `allow` 访问权限：允许指定IP访问或者全部（all）
+              - `proxy_pass` 反向代理的到指定的服务器
               - `proxy_cache_purge` 访问指定路由手动删除缓存
           - 虚拟主机：将一个服务器主机划分为多个主机称为虚拟主机（`/usr/local/nginx/conf/nginx.conf`中server），以端口区分
       - 根据终端显示对应的页面（PC or Moblie）
+   - Mongodb （3.6.17）
+     - 解压压缩包并移动到 `/usr/local/mongodb`
+     - 创建数据存放目录 `mkdir -p /data/mongodb`
+     - 启动mongodb： 1.进入指定目录 `/usr/local/mongodb/bin`, 2.启动并指定端口、存放数据路径 `./mongod --port 27017 --dbpath=/data/mongodb`
+     - 查看MongoDB是否启动 `netstat -lanp | grep "27017"`
+     - 进入操作数据库命令环境：1.进入指定目录 `/usr/local/mongodb/bin` , 2.启动 `./mongo`
 ### 服务器
 > 前端 -> nginx负载均衡 -> Node服务器（过滤后端返回没用的数据）-> redis缓存 -> java服务器 -> 数据库
 
