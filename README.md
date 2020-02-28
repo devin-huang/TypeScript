@@ -233,7 +233,7 @@
  - overflow: hidden => 为什么能填满浮动后父级内容？ 因为：overflow:hidden 会生成BFC（Block Formatting Contect）会让浮动元素重新计算
 
 ### Nginx
-- 优点：（负载均衡，反向代理，并发处理，低消耗内存资源）
+- 优点：（负载均衡，反向代理，并发处理，低消耗内存资源，动静分离[动：请求数据库，静：css/js等静态文件] ）
 - 下载资源： `curl -O https://***`
 ### Liunx
  - VMware (Workstation Pro)
@@ -310,13 +310,14 @@
               - `proxy_cache_purge` 访问指定路由手动删除缓存
           - 虚拟主机：将一个服务器主机划分为多个主机称为虚拟主机（`/usr/local/nginx/conf/nginx.conf`中server），以端口区分
       - 根据终端显示对应的页面（PC or Moblie）
-   - Mongodb （3.6.17）
+   - mongodb （3.6.17）
      - 解压压缩包并移动到 `/usr/local/mongodb`
      - 创建数据存放目录 `mkdir -p /data/mongodb`
      - 启动mongodb： 1.进入指定目录 `/usr/local/mongodb/bin`, 2.启动并指定端口、存放数据路径 `./mongod --port 27017 --dbpath=/data/mongodb`
      - 查看MongoDB是否启动 `netstat -lanp | grep "27017"`
      - 进入操作数据库命令环境：1.进入指定目录 `/usr/local/mongodb/bin` , 2.启动 `./mongo`
    - ab并发压力测试
+   - keepalived 为Nginx添加健壮性（当主Nginx服务器奔溃时，直接连接备用Nginx）
 ### 服务器
 > 前端 -> nginx负载均衡 -> Node服务器（过滤后端返回没用的数据）-> redis缓存 -> java服务器 -> 数据库
 
