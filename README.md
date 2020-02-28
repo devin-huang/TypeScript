@@ -234,7 +234,6 @@
 
 ### Nginx
 - 优点：（负载均衡，反向代理，并发处理，低消耗内存资源，动静分离[动：请求数据库，静：css/js等静态文件] ）
-- 下载资源： `curl -O https://***`
 ### Liunx
  - VMware (Workstation Pro)
   - CentOS 8 liunx版本
@@ -250,15 +249,16 @@
       - 网络配置：IPV4设为自动（DHCP）保存即显示连接状态
       - root 密码设置为123456等弱密码时点击两次确定即可
  - liunx 常用指令
-    - ls 列出文件
-    - ll 列出文件与权限
-    - :wq 保存并关闭
-    - :q! 不保存并关闭
-    - :q  直接关闭
-    - rm -rf 删除文件夹
-    - -p 操作根目录
-    - mv 移动文件
-    - tar -xvf 解压
+    - `curl -O https://***` 下载资源
+    - `ls` 列出文件
+    - `ll` 列出文件与权限
+    - `:wq` 保存并关闭
+    - `:q!` 不保存并关闭
+    - `:q`  直接关闭
+    - `rm -rf` 删除文件夹
+    - `-p` 操作根目录
+    - `mv` 移动文件
+    - `tar -xvf` 解压
  - liunx 安装插件
    - 切换为root用户
     - yum：CentOS中的Shell前端软件包管理器，默认系统已安装。安装方法：https://rpm.nodesource.com/
