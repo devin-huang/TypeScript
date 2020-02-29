@@ -317,6 +317,9 @@
      - 启动mongodb： 1.进入指定目录 `/usr/local/mongodb/bin`, 2.启动并指定端口、存放数据路径 `./mongod --port 27017 --dbpath=/data/mongodb`
      - 查看MongoDB是否启动 `ps -ef | grep mongodb`
      - 进入操作数据库命令环境：1.进入指定目录 `/usr/local/mongodb/bin` , 2.启动 `./mongo`
+     - 增/批量增（insert） `db.collection.insert({})` or  `db.collection.insert([{}, {}])`
+     - 更新对象（update） `db.collection.update({}, {$set: {}}, {multi: true, upsert: true})`，`$set`更新的键值，`multi`为全数据更新（默认更新第一条），`upsert`为没当数据时直接插入
+     - 更新数组 
    - ab并发压力测试
    - keepalived 为Nginx添加健壮性（当主Nginx服务器奔溃时，直接连接备用Nginx）
 ### 服务器
