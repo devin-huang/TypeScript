@@ -250,6 +250,7 @@
       - root 密码设置为123456等弱密码时点击两次确定即可
  - liunx 常用指令
     - `curl -O https://***` 下载资源
+    - `pwd` 查看当前路径
     - `ls` 列出文件
     - `ll` 列出文件与权限
     - `:wq` 保存并关闭
@@ -314,7 +315,7 @@
      - 解压压缩包并移动到 `/usr/local/mongodb`
      - 创建数据存放目录 `mkdir -p /data/mongodb`
      - 启动mongodb： 1.进入指定目录 `/usr/local/mongodb/bin`, 2.启动并指定端口、存放数据路径 `./mongod --port 27017 --dbpath=/data/mongodb`
-     - 查看MongoDB是否启动 `netstat -lanp | grep "27017"`
+     - 查看MongoDB是否启动 `ps -ef | grep mongodb`
      - 进入操作数据库命令环境：1.进入指定目录 `/usr/local/mongodb/bin` , 2.启动 `./mongo`
    - ab并发压力测试
    - keepalived 为Nginx添加健壮性（当主Nginx服务器奔溃时，直接连接备用Nginx）
@@ -322,6 +323,8 @@
 > 前端 -> nginx负载均衡 -> Node服务器（过滤后端返回没用的数据）-> redis缓存 -> java服务器 -> 数据库
 
 ### Node
+  - 高性能处理I/O流
+  - mocha 单元测试
   - 以二进制格式传输流 加快请求速度
   - 心跳诊断是否连接中 => setTimeout去Ping
   - Node内存泄漏巨影响性能
