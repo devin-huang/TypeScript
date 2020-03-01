@@ -319,7 +319,20 @@
      - 进入操作数据库命令环境：1.进入指定目录 `/usr/local/mongodb/bin` , 2.启动 `./mongo`
      - 增/批量增（insert） `db.collection.insert({})` or  `db.collection.insert([{}, {}])`
      - 更新对象（update） `db.collection.update({}, {$set: {}}, {multi: true, upsert: true})`，`$set`更新的键值，`multi`为全数据更新（默认更新第一条），`upsert`为没当数据时直接插入
-     - 更新数组 
+     - 更新数组
+        - `$addToSet` 当值不存在时添加值到数组，否则不添加
+        - `$each` 批量添加值
+        - `$pop` 删除数组首/尾值
+        - `$pull` 删除数组指定键；通过$set把指定键设为 null 通过 $pull 过掉数组
+     - findAndModify 
+        - * `findAndModify ` 有返回值，$update是没有的，速度比$update稍慢，但是建议使用该函数更新/删除 *
+        - * `runCommand()` 执行mongoDB中的特殊函数,findAndModify就是特殊函数之一,他的作用是返回update或remove后的文档 *
+     - 查询/多条件查询 （find）
+        - $in 查询一键多值（包含） `$in: [*, *]`
+        - $or 查询多键多值(或) `$or: [{age: 12}, {name: 'devin'}]`
+        - $and 查询多键多值（且） `$and: [{age: 12}, {name: 'devin'}]`
+        - $en / $lte / $lt / $gte / $gt； 大于、小于、不等于 
+        
    - ab并发压力测试
    - keepalived 为Nginx添加健壮性（当主Nginx服务器奔溃时，直接连接备用Nginx）
 ### 服务器
