@@ -332,7 +332,10 @@
         - $or 查询多键多值(或) `$or: [{age: 12}, {name: 'devin'}]`
         - $and 查询多键多值（且） `$and: [{age: 12}, {name: 'devin'}]`
         - $en / $lte / $lt / $gte / $gt； 大于、小于、不等于 
-        
+     - 搜索文本含指定字段 `$search`
+     - 输出状态 `db.collection.stats()`
+     - 高性能搜索/更新数据 `db.collection.createIndex({})`
+     - 删除 (drop)
    - ab并发压力测试
    - keepalived 为Nginx添加健壮性（当主Nginx服务器奔溃时，直接连接备用Nginx）
 ### 服务器
