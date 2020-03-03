@@ -210,6 +210,8 @@
   }
   ```
 ### HTTP2
+  - 多路复用
+  - 
   
 ### 渲染机制
 
@@ -224,7 +226,7 @@
   - 将图层合生成图像并处理
     - GPU处理方式 CSS 3D/ Video / canvas / transform / transition
     - 注意： width/ height / offset /client / scrollTop会立刻触发重排，因为这些需要立即返回准确的数值防止重排后排列位置不对，所以最优处理时采用requireAnimationFrame（执行下一帧时触发）统一写、统一读
-- css2 双飞翼布局 => CSS3 Flex布局: order， 目的：将最重要的HTML放在最顶部优先渲染
+- css2 双飞翼布局 => CSS3 Flex布局， 目的：将最重要的HTML放在最顶部优先渲染
 - css font
 - css 写法规范
   - block / inlink 不需要把默认样式再设置一次（如block  width:100%, inlink  width:50px）
@@ -232,8 +234,6 @@
   - 不能过度使用float/ 去掉空样式标签
  - overflow: hidden => 为什么能填满浮动后父级内容？ 因为：overflow:hidden 会生成BFC（Block Formatting Contect）会让浮动元素重新计算
 
-### Nginx
-- 优点：（负载均衡，反向代理，并发处理，低消耗内存资源，动静分离[动：请求数据库，静：css/js等静态文件] ）
 ### Liunx
  - VMware (Workstation Pro)
   - CentOS 8 liunx版本
@@ -275,6 +275,7 @@
       - 开打文件 `vim /usr/share/applications/sublime_text.desktop`
       - 配置快速启动 `Exec /Icon` 均改为sublime安装目录 => `/opt/sublime_text_3/sublime_text`
     - Nginx（1.16版本）
+      - 优点：（负载均衡，反向代理，低消耗内存资源，动静分离[动：请求数据库，静：css/js等静态文件] ）
       - 安装Nginx依赖包：`yum -y install gcc zlib zlib-devel pcre-devel make cmake openssl openssl-devel`
       - liunx 内官网下载Nginx(稳定版)： `http://nginx.org/`
       - 解压Nginx.**.tar.gz，解压后文件夹内执行`./configure`检查
@@ -338,7 +339,8 @@
      - 删除 (drop)
    - ab并发压力测试
    - keepalived 为Nginx添加健壮性（当主Nginx服务器奔溃时，直接连接备用Nginx）
-### 服务器
+   
+### 服务器集群
 > 前端 -> nginx负载均衡 -> Node服务器（过滤后端返回没用的数据）-> redis缓存 -> java服务器 -> 数据库
 
 ### Node
@@ -353,3 +355,17 @@
     - 每个Node.js进程只有一个主线程在执行程序代码，形成一个执行栈（execution context stack)。
     - 主线程之外，还维护了一个"事件队列"（Event queue）。当用户的网络请求或者其它的异步操作到来时，node都会把它放到Event Queue之中，此时并不会立即执行它，代码也不会被阻塞，继续往下走，直到主线程代码执行完毕。
     - 主线程代码执行完毕完成后，然后通过Event Loop，也就是事件循环机制，开始到Event Queue的开头取出第一个事件，从线程池中分配一个线程去执行这个事件，接下来继续取出第二个事件，再从线程池中分配一个线程去执行，然后第三个，第四个。主线程不断的检查事件队列中是否有未执行的事件，直到事件队列中所有事件都执行完了，此后每当有新的事件加入到事件队列中，都会通知主线程按顺序取出交EventLoop处理。当有事件执行完毕后，会通知主线程，主线程执行回调，线程归还给线程池
+
+### 移动端自适应尺寸
+  - rem计算方式：
+    - 1. 以Iphone6宽度375为准, 并设置HTML标签 `1rem = 10px`
+    - 2. 假设Iphone6中需要绘制宽度200px的长方形：`20rem` (20rem = 200px)
+    - 3. 由上可得在不同尺寸的移动端中改变HTML标签 `1rem = (当前尺寸宽度/375) * 10px` 即可不同尺寸自适应
+  - 事件穿透；有上下重叠的元素，当上层元素点击隐藏后会自动点击下层的绑定事件或默认事件 （click 延迟300sm造成）
+    - fastClick 插件
+    - 阻止默认事件
+  - position:flex在部分Iphone中会产生位置错乱（弹出键盘、滚动）
+    - 使用relative/absolute定位
+### 小程序
+  - rpx 
+    - 以iphone6为准：`1rpx = 屏幕宽度375/物理像素750 = 0.5px` 从而自适应其他设配宽度
