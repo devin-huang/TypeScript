@@ -333,6 +333,7 @@
         - $or 查询多键多值(或) `$or: [{age: 12}, {name: 'devin'}]`
         - $and 查询多键多值（且） `$and: [{age: 12}, {name: 'devin'}]`
         - $en / $lte / $lt / $gte / $gt； 大于、小于、不等于 
+        - 数组中`$all`代表并 `$in`代表或
      - 搜索文本含指定字段 `$search`
      - 输出状态 `db.collection.stats()`
      - 高性能搜索/更新数据 `db.collection.createIndex({})`
