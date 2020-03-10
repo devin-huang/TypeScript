@@ -91,9 +91,11 @@
     }
   ```
 - render
-  - 将 render 生成 VNode
-    - Template / HTML 转换成 render 再使用 createElement 生成 VNode
-    - VNode
+  - 将 render 转为 AST（抽象语法树） 再生成 VNode
+    - Template / HTML 转换成 render 转为 AST（AST：表示代码结构，能让不同编程语言识别并可以精准修改声明、赋值、运算等操作）
+    - 再使用 createElement 生成 VNode
+    - VNode （简述：以js对象格式表示DOM，通过一些列原生方式生成DOM并挂载）
+    - VNode (优点：1.兼容性强，能让浏览器、weex、Node操作以服务渲染、原生渲染；2.减少DOM操作)
       ```
       {
         tag: 'div'
