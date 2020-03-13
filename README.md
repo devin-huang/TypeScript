@@ -104,7 +104,7 @@
     }
   ```
 - render
-  - render 内部使用createElement 实例化 VNode
+  - render 内部使用createElement 返回 实例化 VNode
     - Template / HTML 转换成 render表达式
     - render内部用 createElement 实例化 VNode
     - VNode （简述：以js对象格式表示DOM，通过一些列原生方式生成DOM并挂载）
