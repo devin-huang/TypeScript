@@ -58,6 +58,16 @@
 
 # Vue 源码
 
+## Vue 3.0 新特性：
+
+- 底层：对于原生标签或组件标签在编译时及生成并渲染，减少运行时编译消耗
+
+- slot：在2.x版本中当子组件slot更新会把父组件也更新，3.0把slot变成函数更新时父子互不影响
+
+- 优化框架大小：2.x把所有配置都绑定在vue上导致一部分无用功能消耗内存，3.0把keepalive/等模块化，按需引用
+
+- Object.defindProperty换成Proxy
+
 ## MVVM
 - M => Observe：实例化Vue时使用`Object.defineProperty` && `Object.keys` 遍历data实现数据响应式，Observer是用来给数据添加Dep依赖
 - V => Compiler：解析HTML中的指令，根据每个元素节点的指令替换数据或绑定更新函数
@@ -68,18 +78,18 @@
 
 > 2.vue实例以参数传入Compile并编译HTML中的指令（v-text/v-html/{{}}等），对每个节点（元素节点/属性节点/文本节点）绑定的变量、函数通过watcher更新（或初始化）更新视图
 
-> 3. MVVM模式中都会传入Vue实例（vm）贯穿整个流程，通过watcher操作vm(Compile时传入)使第一步与第二步连接起来
+> 3.MVVM模式中都会传入Vue实例（vm）贯穿整个流程，通过watcher操作vm(Compile时传入)使第一步与第二步连接起来
 
-> 4. 防止频繁更新视图：异步更新队列，触发方法时将一系列的数据改变操作存入到任务队列中，等同步任务完成后执行异步队列更新视图
+> 4.防止频繁更新视图：异步更新队列，触发方法时将一系列的数据改变操作存入到任务队列中，等同步任务完成后执行异步队列更新视图
 
 [!](mvvm.png)
 
 ## 渲染
 - $mount
   - 渲染组件真实挂载位置，可用 DOM 或 String 获取
-  - 第一步：如果是有定义render函数直接输出第三步结果，否则Template 或 HTML 转为 AST抽象语法树
+  - 第一步：如果是有定义render函数直接输出第三步结果，否则Template 或 HTML 使用parse转为 AST（AST：表示代码结构，能让不同编程语言识别并可以精准修改声明、赋值、运算等操作）
   - 第二步：optimize 标记静态节点用于优化后续diff算法中会被直接忽略
-  - 第三步：generate 将AST 转为 render （Vue最终都转为render, 如果直接使用render性能更优）
+  - 第三步：generate 将AST 转为 render表达式 （Vue最终都转为render, 如果直接使用render性能更优）
   ```js
     render (creatElement) {
       return creatElement('div',
@@ -91,9 +101,9 @@
     }
   ```
 - render
-  - 将 render 转为 AST（抽象语法树） 再生成 VNode
-    - Template / HTML 转换成 render 转为 AST（AST：表示代码结构，能让不同编程语言识别并可以精准修改声明、赋值、运算等操作）
-    - 再使用 createElement 生成 VNode
+  - render 内部使用createElement 实例化 VNode
+    - Template / HTML 转换成 render表达式
+    - render内部用 createElement 实例化 VNode
     - VNode （简述：以js对象格式表示DOM，通过一些列原生方式生成DOM并挂载）
     - VNode (优点：1.兼容性强，能让浏览器、weex、Node操作以服务渲染、原生渲染；2.减少DOM操作)
       ```
