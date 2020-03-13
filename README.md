@@ -60,13 +60,15 @@
 
 ## Vue 3.0 新特性：
 
-- 底层：对于原生标签或组件标签在编译时及生成并渲染，减少运行时编译消耗
+- virtrual DOM：对于原生标签或组件标签在编译时及判断并渲染，减少运行时开销
 
-- slot：在2.x版本中当子组件slot更新会把父组件也更新，3.0把slot变成函数更新时父子互不影响
+- slot：在2.x版本中当子组件slot更新会把父组件也更新，3.0把slot生成函数由子组件决定更新而父子互不影响
 
-- 优化框架大小：2.x把所有配置都绑定在vue上导致一部分无用功能消耗内存，3.0把keepalive/等模块化，按需引用
+- 优化框架大小：2.x把所有配置都绑定在vue上导致一部分无用功能消耗内存，3.0把keepalive/transition/v-model/v-for/mixins等模块化，按需引用
 
-- Object.defindProperty换成Proxy
+- minxis等公共代码部分的新方式：使用value(0)， 语法类型校验：Typescript
+
+- Object.defindProperty换成Proxy，支持新对象属性，数组Index、map/set, 对于大规模数据当仅使用小部分时只会侦听小部分
 
 ## MVVM
 - M => Observe：实例化Vue时使用`Object.defineProperty` && `Object.keys` 遍历data实现数据响应式，Observer是用来给数据添加Dep依赖
