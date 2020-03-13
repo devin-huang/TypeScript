@@ -90,6 +90,7 @@
 - $mount
   - 渲染组件真实挂载位置，可用 DOM 或 String 获取
   - 第一步：如果是有定义render函数直接输出第三步结果，否则Template 或 HTML 使用parse转为 AST（AST：表示代码结构，能让不同编程语言识别并可以精准修改声明、赋值、运算等操作）
+  - 第二步：parse 将template每节点（ 获取每节点方法：indexof('<')处理完毕后删除该节点字符续集循环parse ）通过正则验证找到对的标签、属性、值、子节点等AST对象
   - 第二步：optimize 标记静态节点用于优化后续diff算法中会被直接忽略
   - 第三步：generate 将AST 转为 render表达式 （Vue最终都转为render, 如果直接使用render性能更优）
   ```js
