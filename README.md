@@ -84,7 +84,7 @@
 
 > 4.防止频繁更新视图：异步更新队列，触发方法时将一系列的数据改变操作存入到任务队列中，等同步任务完成后执行异步队列更新视图
 
-[!](mvvm.png)
+[!](mvvm.png) 
 
 ## 渲染
 - $mount
@@ -148,7 +148,7 @@
   - 根据vm.cache[key]渲染对应组件，既是使用 render 中的 updateComponent
 
 # Vue 高级处理
-内存泄漏
+## 内存泄漏
 - 外部引用的对象不能直接data中定义（因为最终会通过`Object.defineProperty`绑定全局Vue内，而外部对象嵌套复杂度无法控制）
 ```html
 <div v-html="text">
@@ -158,7 +158,7 @@
 </div>
 ```
 - 解析HTML中的指令并用数组保存（如：`['v-html','v-if', 'v-on']`）, 在项目庞大时重新渲染如果`v-if`条件不满足`v-on`也不会执行就会导致`[watcher, undefined, undefined]`处理数组代码没考虑健壮性时容易产生内存泄漏；因为数组中间出现断层，占内存比较大时该数组中不断累加
-- 全局引用（window / document / setTimeout / setInterval / 闭包 / 全局事件）
+- 全局引用（window / document / setTimeout / setInterval / 闭包 / DOM中绑定全局变量 / 全局事件）
 - Keep-alive 实际把组件VNode保存在Vue实例cache中，当缓存过多VNode会泄漏，所以设置keep-alive设置max值或者合理销毁cache
 
 # Object.defineProperty 处理数组
