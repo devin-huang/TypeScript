@@ -58,21 +58,9 @@
 
 # Vue 源码
 
-## Vue 3.0 新特性：
-
-- virtrual DOM：对于原生标签或组件标签在编译时及判断并渲染，减少运行时开销
-
-- slot：在2.x版本中当子组件slot更新会把父组件也更新，3.0把slot生成函数由子组件决定更新而父子互不影响
-
-- 优化框架大小：2.x把所有配置都绑定在vue上导致一部分无用功能消耗内存，3.0把keepalive/transition/v-model/v-for/mixins等模块化，按需引用
-
-- minxis等公共代码部分的新方式：使用value(0)， 语法类型校验：Typescript
-
-- Object.defindProperty换成Proxy，支持新对象属性，数组Index、map/set, 对于大规模数据当仅使用小部分时只会侦听小部分
-
 ## MVVM
-- M => Observe：实例化Vue时使用`Object.defineProperty` && `Object.keys` 遍历data实现数据响应式，Observer是用来给数据添加Dep依赖
-- V => Compiler：解析HTML中的指令，根据每个元素节点的指令替换数据或绑定更新函数
+- M => Observe：实例化Vue时使用`Object.defineProperty` && `Object.keys` 实现数据响应式，Observer是用来给数据添加Dep依赖
+- V => Compiler：解析HTML中的指令，每个元素节点的指令更新或初始化数据与函数
 - VM => Watcher / Dep： Observe与Compiler之间桥梁，在Compiler解析指令创建watcher并绑定`update`方法
 - Dep 用于存储发布订阅的响应依赖，且当所绑定的数据有变更时, 通过`dep.notify()`通知Watcher
 
@@ -87,6 +75,16 @@
 [!](mvvm.png) 
 
 ## 渲染
+```
+// template转成了AST的模型树，接下来再将AST模型树转成render表达式，执行render表达式后，生成了vnode最后变成DOM
+
+1.Object.defineProperty绑定成响应式数据
+2.template使用parse正则匹配每节点标签、属性生成AST树形对象
+3.AST使用generate获取标签、属性、children转为render表达是字符串
+4.render使用createElement遍历递归生成VNode表示DOM结构
+5.判断VNode是否为原生标签，是则createElement使用patch中的createEle根据VNode一级级插入真实DOM，
+6.否则createComponent并生成构造器继承Vue,通过vue.extend返回组件构造器返回到render步骤
+```
 - $mount
   - 渲染组件真实挂载位置，可用 DOM 或 String 获取
   - 第一步：如果是有定义render函数直接输出第三步结果，否则Template 或 HTML 使用parse转为 AST（AST：表示代码结构，能让不同编程语言识别并可以精准修改声明、赋值、运算等操作）
@@ -250,6 +248,18 @@
   - 不能使用ID选择器，低端浏览器单个元素不能使用多个class
   - 不能过度使用float/ 去掉空样式标签
  - overflow: hidden => 为什么能填满浮动后父级内容？ 因为：overflow:hidden 会生成BFC（Block Formatting Contect）会让浮动元素重新计算
+   
+## Vue 3.0 新特性：
+
+- virtrual DOM：对于原生标签或组件标签在编译时及判断并渲染，减少运行时开销
+
+- slot：在2.x版本中当子组件slot更新会把父组件也更新，3.0把slot生成函数由子组件决定更新而父子互不影响
+
+- 优化框架大小：2.x把所有配置都绑定在vue上导致一部分无用功能消耗内存，3.0把keepalive/transition/v-model/v-for/mixins等模块化，按需引用
+
+- minxis等公共代码部分的新方式：使用value(0)， 语法类型校验：Typescript
+
+- Object.defindProperty换成Proxy，支持新对象属性，数组Index、map/set, 对于大规模数据当仅使用小部分时只会侦听小部分
    
 ### 服务器集群
 
