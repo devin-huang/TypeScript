@@ -59,18 +59,16 @@
 # Vue 源码
 
 ## MVVM
-- M => Observe：实例化Vue时使用`Object.defineProperty` && `Object.keys` 实现数据响应式，Observer是用来给数据添加Dep依赖
-- V => Compiler：解析HTML中的指令，每个元素节点的指令更新或初始化数据与函数
-- VM => Watcher / Dep： Observe与Compiler之间桥梁，在Compiler解析指令创建watcher并绑定`update`方法
-- Dep 用于存储发布订阅的响应依赖，且当所绑定的数据有变更时, 通过`dep.notify()`通知Watcher
 
-> 1.通过Object.defineProperty对Vue实例化后的Data对象遍历绑定为相应数据，get负责添加到Dep对象的订阅者中，set负责触发watcher更新视图
+> 1.通过Object.defineProperty对Vue实例化Data变成响应式数据，get负责添加到Dep对象的订阅者中，set负责触发watcher更新视图
 
-> 2.vue实例以参数传入Compile并编译HTML中的指令（v-text/v-html/{{}}等），对每个节点（元素节点/属性节点/文本节点）绑定的变量、函数通过watcher更新（或初始化）更新视图
+> 2.Compile并编译HTML中的指令（v-text/v-html/{{}}等），每个节点（元素节点/属性节点/文本节点）绑定的变量、函数通过watcher更新（或初始化）更新视图
 
-> 3.MVVM模式中都会传入Vue实例（vm）贯穿整个流程，通过watcher操作vm(Compile时传入)使第一步与第二步连接起来
+> 3.MVVM模式中Observer、Compile与watcher都会传入Vue实例（vm）贯穿整个流程，通过watcher操作vm使第一步与第二步连接起来
 
-> 4.防止频繁更新视图：异步更新队列，触发方法时将一系列的数据改变操作存入到任务队列中，等同步任务完成后执行异步队列更新视图
+> 4.Dep用于存储发布订阅的响应依赖，且当所绑定的数据有变更时, 通过`dep.notify()`通知Watcher
+
+> 5.防止频繁更新视图：异步更新队列，触发方法时将一系列的数据改变操作存入到任务队列中，等同步任务完成后执行异步队列更新视图
 
 [!](mvvm.png) 
 
