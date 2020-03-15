@@ -80,8 +80,8 @@
 2.template使用parse正则匹配每节点标签、属性生成AST树形对象
 3.AST使用generate获取标签、属性、children转为render表达是字符串
 4.render使用createElement遍历递归生成VNode表示DOM结构
-5.判断VNode是否为原生标签，是则createElement使用patch中的createEle根据VNode一级级插入真实DOM，
-6.否则createComponent并生成构造器继承Vue,构造器通过vue.extend返回组件构造器实例化组件并返回到render步骤
+5.判断VNode是否为原生标签，是则调用createElement使用patch中的createEle根据VNode一级级插入真实DOM，
+6.否则调用createComponent并在VNode把构造器（继承Vue）传入,构造器通过vue.extend返回组件构造器同时实例化组件并返回到render步骤
 ```
 - $mount
   - 渲染组件真实挂载位置，可用 DOM 或 String 获取
